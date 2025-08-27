@@ -1,0 +1,17 @@
+{
+  "name": "fanuel045-api",
+  "version": "1.0.0",
+  "description": "API serverless pour générer des URL signées (temporaires) vers des documents stockés dans un bucket privé (Supabase Storage).",
+  "type": "module",
+  "private": true,
+  "main": "api/sign-url.js",
+  "scripts": {
+    "start": "node api/sign-url.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.56.0"
+  }
+}
