@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Mandela KASUMBA Fanuel (Fanuel045)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563EB;
+            --secondary: #1E40AF;
+            --accent: #10B981;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F9FAFB;
+            color: #1F2937;
+            scroll-behavior: smooth;
+        }
+        
+        .section-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--dark);
+            color: white;
+            padding: 1rem;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .edit-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .edit-btn:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+        
+        .edit-mode .editable {
+            outline: 2px dashed var(--primary);
+            padding: 4px;
+            margin: -4px;
+            min-height: 20px;
+            border-radius: 4px;
+        }
+        
+        .save-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1001;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-hover {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #E5E7EB;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background-color: var(--primary);
+            transition: width 1s ease-in-out;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+        
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 25px;
+            width: 2px;
+            height: calc(100% + 5px);
+            background: var(--primary);
+        }
+        
+        .timeline-item:last-child:after {
+            display: none;
+        }
+        
+        .skill-level {
+            width: 0;
+            transition: width 2s ease-in-out;
+        }
+        
+        .upload-container {
+            border: 2px dashed #D1D5DB;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-container:hover {
+            border-color: var(--primary);
+            background-color: #F3F4F6;
+        }
+        
+        .document-item {
+            transition: all 0.3s;
+        }
+        
+        .document-item:hover {
+            background-color: #F3F4F6;
+            transform: translateX(5px);
+        }
+        
+        .floating-label {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .floating-input {
+            border: 1px solid #D1D5DB;
+            border-radius: 4px;
+            padding: 16px 12px 8px;
+            width: 100%;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        
+        .floating-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+        
+        .floating-label-text {
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            transform: translateY(-50%);
+            background: white;
+            padding: 0 4px;
+            color: #6B7280;
+            transition: all 0.2s;
+            pointer-events: none;
+        }
+        
+        .floating-input:focus + .floating-label-text,
+        .floating-input:not(:placeholder-shown) + .floating-label-text {
+            top: 0;
+            font-size: 12px;
+            color: var(--primary);
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background: var(--secondary);
+        }
+        
+        .profile-image-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+        
+        .profile-image-container:hover .profile-overlay {
+            opacity: 1;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .section-title-center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-image-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .section-title:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="app">
+        <!-- Les composants seront chargés ici -->
+    </div>
+
+    <script>
+        // Définir tous les composants
+        const Header = {
+            render: () => {
+                return `
+                    <!-- Bouton d'édition -->
+                    <div class="edit-btn" id="edit-toggle">
+                        <i class="fas fa-edit text-xl"></i>
+                    </div>
+
+                    <!-- Panel d'administration -->
+                    <div class="admin-panel" id="admin-panel">
+                        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+                            <h2 class="text-xl font-bold">Mode Édition</h2>
+                            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-4 md:mt-0">
+                                <button id="upload-profile" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                                    <i class="fas fa-camera mr-2"></i>Photo
+                                </button>
+                                <button id="upload-docs" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded">
+                                    <i class="fas fa-file-upload mr-2"></i>Documents
+                                </button>
+                                <button id="save-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                                    <i class="fas fa-save mr-2"></i>Enregistrer
+                                </button>
+                                <button id="cancel-btn" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                                    <i class="fas fa-times mr-2"></i>Annuler
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification de sauvegarde -->
+                    <div class="save-notification" id="save-notification">
+                        <i class="fas fa-check-circle mr-2"></i> Modifications enregistrées avec succès!
+                    </div>
+
+                    <!-- Navigation Component -->
+                    <nav class="bg-white shadow-md fixed w-full z-10">
+                        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+                            <a href="#" class="flex items-center">
+                                <div class="logo-fanuel mr-2" title="Fanuel045 Dev." style="width: 30px; height: 30px; cursor: pointer;">
+                                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="100" height="100" fill="#0D1B2A" rx="12" />
+                                        <circle cx="50" cy="50" r="40" stroke="#FFD700" stroke-width="4" fill="none" />
+                                        <text x="50%" y="54%" text-anchor="middle" fill="#8B0000" font-size="36" font-family="Arial, sans-serif" font-weight="bold" dominant-baseline="middle">By</text>
+                                    </svg>
+                                </div>
+                                <span class="text-xl font-bold text-blue-600 editable" data-id="logo-text">Fanuel045</span>
+                            </a>
+                            <div class="hidden md:block">
+                                <a href="#accueil" class="mx-2 text-gray-700 hover:text-blue-600 nav-link">Accueil</a>
+                                <a href="#projets" class="mx-2 text-gray-700 hover:text-blue-600 nav-link">Projets</a>
+                                <a href="#competences" class="mx-2 text-gray-700 hover:text-blue-600 nav-link">Compétences</a>
+                                <a href="#experiences" class="mx-2 text-gray-700 hover:text-blue-600 nav-link">Expériences</a>
+                                <a href="#documents" class="mx-2 text-gray-700 hover:text-blue-600 nav-link">Documents</a>
+                                <a href="#contact" class="mx-2 text-gray-700 hover:text-blue-600 nav-link">Contact</a>
+                            </div>
+                            <div class="md:hidden">
+                                <button id="menu-btn" class="text-gray-700">
+                                    <i class="fas fa-bars text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="mobile-menu" class="hidden px-6 pt-2 pb-4 bg-white shadow-lg">
+                            <a href="#accueil" class="block py-2 text-gray-700 hover:text-blue-600">Accueil</a>
+                            <a href="#projets" class="block py-2 text-gray-700 hover:text-blue-600">Projets</a>
+                            <a href="#competences" class="block py-2 text-gray-700 hover:text-blue-600">Compétences</a>
+                            <a href="#experiences" class="block py-2 text-gray-700 hover:text-blue-600">Expériences</a>
+                            <a href="#documents" class="block py-2 text-gray-700 hover:text-blue-600">Documents</a>
+                            <a href="#contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
+                        </div>
+                    </nav>
+                `;
+            }
+        };
+
+        const Hero = {
+            render: () => {
+                return `
+                    <!-- Hero Component -->
+                    <section id="accueil" class="pt-32 pb-16 px-6 gradient-bg text-white">
+                        <div class="container mx-auto flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 mb-10 md:mb-0">
+                                <h1 class="text-4xl md:text-5xl font-bold mb-4 editable" data-id="hero-title">Mandela KASUMBA Fanuel</h1>
+                                <h2 class="text-2xl md:text-3xl mb-6 editable" data-id="hero-subtitle">Développeur Full Stack & Mobile</h2>
+                                <p class="text-lg mb-8 editable" data-id="hero-description">Je crée des expériences web et mobiles exceptionnelles avec Django, React.js et Kotlin. Passionné par les technologies émergentes comme la blockchain.</p>
+                                <div class="flex flex-wrap gap-4">
+                                    <a href="#contact" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300">Me Contacter</a>
+                                    <a href="#documents" class="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-6 rounded-full shadow-lg transition duration-300">Voir mes Documents</a>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 flex justify-center">
+                                <div class="profile-image-container">
+                                    <img src="assets/images/Fanuel2.jpg" alt="Fanuel045 - Développeur Full Stack" class="profile-image" id="profile-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDI1MCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTI1IiBjeT0iMTI1IiByPSIxMjUiIGZpbGw9IiNFOEU4RTgiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjY0IiBmaWxsPSIjOTk5OTk5Ij5GPC90ZXh0Pjwvc3ZnPg=='">
+                                    <div class="profile-overlay">
+                                        <i class="fas fa-camera text-white text-2xl"></i>
+                                    </div>
+                                    <input type="file" id="profile-upload" accept="image/*" class="hidden">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+        };
+
+        const About = {
+            render: () => {
+                return `
+                    <!-- About Component -->
+                    <section class="py-16 px-6 bg-white">
+                        <div class="container mx-auto">
+                            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 section-title section-title-center editable" data-id="about-title">À Propos de Moi</h2>
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-8">
+                                    <h3 class="text-2xl font-semibold mb-4 text-blue-600 editable" data-id="about-subtitle">Mon Parcours</h3>
+                                    <p class="text-gray-700 mb-6 editable" data-id="about-description">Étudiant en Bac 4 en Génie Logiciel, je suis passionné par le développement web et mobile depuis plusieurs années. J'ai acquis une expertise solide dans la création d'applications modernes et responsives avec Django, React.js et Kotlin.</p>
+                                    <p class="text-gray-700 mb-6 editable" data-id="about-details">Je m'intéresse particulièrement aux technologies émergentes comme la blockchain et je me forme constamment aux nouvelles pratiques de développement. J'aime résoudre des problèmes complexes et créer des expériences utilisateur exceptionnelles.</p>
+                                    <p class="text-gray-700 editable" data-id="about-more">En dehors du code, je suis passionné par l'enseignement et le partage de connaissances. J'ai d'ailleurs été enseignant à l'école primaire Destiny School en 2020-2021 avant de me consacrer pleinement à mes études en génie logiciel.</p>
+                                </div>
+                                <div class="md:w-1/2 md:pl-8">
+                                    <h3 class="text-2xl font-semibold mb-4 text-blue-600 editable" data-id="info-title">Informations Personnelles</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <p class="font-semibold">Nom complet:</p>
+                                            <p class="text-gray-700 editable" data-id="info-name">Mandela KASUMBA Fanuel</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold">Surnom:</p>
+                                            <p class="text-gray-700 editable" data-id="info-nickname">Fanuel045</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold">Email:</p>
+                                            <p class="text-gray-700 editable" data-id="info-email">fanuel045@email.com</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold">Téléphone:</p>
+                                            <p class="text-gray-700 editable" data-id="info-phone">+257 79 12 34 56</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold">Localisation:</p>
+                                            <p class="text-gray-700 editable" data-id="info-location">Gitega, Burundi</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold">Niveau d'étude:</p>
+                                            <p class="text-gray-700 editable" data-id="info-education">Bac 4 Génie Logiciel</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold">Disponibilité:</p>
+                                            <p class="text-gray-700 editable" data-id="info-availability">Disponible pour projets freelances</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6">
+                                        <a href="#contact" class="btn-primary inline-block">Me Contacter</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+        };
+
+        const Skills = {
+            render: () => {
+                return `
+                    <!-- Skills Component -->
+                    <section id="competences" class="py-16 px-6 bg-gray-100">
+                        <div class="container mx-auto">
+                            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 section-title section-title-center editable" data-id="skills-title">Mes Compétences</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div class="bg-white p-6 rounded-lg shadow-md text-center card-hover">
+                                    <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-code text-2xl text-blue-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2 editable" data-id="skill-1-title">Backend</h3>
+                                    <p class="text-gray-700 mb-4 editable" data-id="skill-1-desc">Django, Django REST, Node.js, Bases de données</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill skill-level" data-level="90"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-md text-center card-hover">
+                                    <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-desktop text-2xl text-green-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2 editable" data-id="skill-2-title">Frontend</h3>
+                                    <p class="text-gray-700 mb-4 editable" data-id="skill-2-desc">React.js, HTML, CSS, JavaScript, Tailwind</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill skill-level" data-level="85"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-md text-center card-hover">
+                                    <div class="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-mobile-alt text-2xl text-red-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2 editable" data-id="skill-3-title">Mobile</h3>
+                                    <p class="text-gray-700 mb-4 editable" data-id="skill-3-desc">Kotlin, Android Development, React Native</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill skill-level" data-level="75"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-md text-center card-hover">
+                                    <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-tools text-2xl text-purple-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2 editable" data-id="skill-4-title">Outils & DevOps</h3>
+                                    <p class="text-gray-700 mb-4 editable" data-id="skill-4-desc">Docker, Git, CI/CD, Figma, SEO</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill skill-level" data-level="80"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+        };
+
+        const Experience = {
+            render: () => {
+                return `
+                    <!-- Experience Component -->
+                    <section id="experiences" class="py-16 px-6 bg-white">
+                        <div class="container mx-auto">
+                            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 section-title section-title-center editable" data-id="exp-title">Mon Parcours</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <!-- Expériences professionnelles -->
+                                <div>
+                                    <h3 class="text-2xl font-semibold mb-6 text-blue-600 pl-4 border-l-4 border-blue-600">Expériences Professionnelles</h3>
+                                    
+                                    <div class="timeline-item">
+                                        <h3 class="text-xl font-semibold editable" data-id="exp-1-title">Développeur Blockchain</h3>
+                                        <p class="text-blue-600 font-semibold editable" data-id="exp-1-company">KitHub - Branche Gitega</p>
+                                        <p class="text-gray-500 text-sm editable" data-id="exp-1-date">2022 - Présent</p>
+                                        <p class="text-gray-700 mt-2 editable" data-id="exp-1-desc">Développement d'applications blockchain et participation aux projets de formation. Membre de l'équipe ayant développé la plateforme ComLab.</p>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <h3 class="text-xl font-semibold editable" data-id="exp-2-title">Enseignant</h3>
+                                        <p class="text-blue-600 font-semibold editable" data-id="exp-2-company">Destiny School, Kamenge</p>
+                                        <p class="text-gray-500 text-sm editable" data-id="exp-2-date">2020 - 2021</p>
+                                        <p class="text-gray-700 mt-2 editable" data-id="exp-2-desc">Enseignement à l'école primaire avant de me consacrer à mes études supérieures en génie logiciel.</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Formations -->
+                                <div>
+                                    <h3 class="text-2xl font-semibold mb-6 text-blue-600 pl-4 border-l-4 border-blue-600">Formations</h3>
+                                    
+                                    <div class="timeline-item">
+                                        <h3 class="text-xl font-semibold editable" data-id="edu-1-title">Bac 4 en Génie Logiciel</h3>
+                                        <p class="text-blue-600 font-semibold editable" data-id="edu-1-school">Département IT</p>
+                                        <p class="text-gray-500 text-sm editable" data-id="edu-1-date">En cours</p>
+                                        <p class="text-gray-700 mt-2 editable" data-id="edu-1-desc">Formation en ingénierie logicielle avec spécialisation en développement web et mobile.</p>
+                                    </div>
+                                    
+                                    <div class="timeline-item">
+                                        <h3 class="text-xl font-semibold editable" data-id="edu-2-title">Formations Blockchain</h3>
+                                        <p class="text-blue-600 font-semibold editable" data-id="edu-2-school">KitHub - Junetech Events</p>
+                                        <p class="text-gray-500 text-sm editable" data-id="edu-2-date">2022 - Présent</p>
+                                        <p class="text-gray-700 mt-2 editable" data-id="edu-2-desc">Participation aux événements Junetech et formations certifiantes en développement blockchain.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+        };
+
+        const Projects = {
+            render: () => {
+                return `
+                    <!-- Projects Component -->
+                    <section id="projets" class="py-16 px-6 bg-gray-100">
+                        <div class="container mx-auto">
+                            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 section-title section-title-center editable" data-id="projects-title">Mes Projets</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                <!-- Project 1 -->
+                                <div class="bg-white rounded-lg overflow-hidden shadow-lg card-hover">
+                                    <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center">
+                                        <i class="fas fa-laptop-medical text-4xl text-white"></i>
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-semibold mb-2 editable" data-id="project-1-title">MedicalChain</h3>
+                                        <p class="text-gray-700 mb-4 editable" data-id="project-1-desc">Plateforme médicale basée sur la blockchain pour la gestion sécurisée des dossiers de santé.</p>
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Blockchain</span>
+                                            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">Django</span>
+                                            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">React</span>
+                                        </div>
+                                        <div class="text-sm text-gray-500 mb-4">En développement</div>
+                                        <a href="#" class="text-blue-600 font-semibold hover:underline flex items-center">
+                                            Voir les détails <i class="fas fa-arrow-right ml-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Project 2 -->
+                                <div class="bg-white rounded-lg overflow-hidden shadow-lg card-hover">
+                                    <div class="h-48 bg-gradient-to-r from-green-500 to-green-700 flex items-center justify-center">
+                                        <i class="fas fa-ship text-4xl text-white"></i>
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-semibold mb-2 editable" data-id="project-2-title">SeaSky On The Way</h3>
+                                        <p class="text-gray-700 mb-4 editable" data-id="project-2-desc">Application de suivi maritime avec analyse de données et prédictions météorologiques.</p>
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Django</span>
+                                            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">React.js</span>
+                                            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">Docker</span>
+                                        </div>
+                                        <div class="text-sm text-gray-500 mb-4">En développement</div>
+                                        <a href="#" class="text-blue-600 font-semibold hover:underline flex items-center">
+                                            Voir les détails <i class="fas fa-arrow-right ml-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Project 3 -->
+                                <div class="bg-white rounded-lg overflow-hidden shadow-lg card-hover">
+                                    <div class="h-48 bg-gradient-to-r from-purple-500 to-purple-700 flex items-center justify-center">
+                                        <i class="fas fa-ticket-alt text-4xl text-white"></i>
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-semibold mb-2 editable" data-id="project-3-title">inviQ</h3>
+                                        <p class="text-gray-700 mb-4 editable" data-id="project-3-desc">Plateforme décentralisée de génération et de gestion d'invitations avec système de vérification blockchain.</p>
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Blockchain</span>
+                                            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">Kotlin</span>
+                                            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">Web3</span>
+                                        </div>
+                                        <div class="text-sm text-gray-500 mb-4">En développement</div>
+                                        <a href="#" class="text-blue-600 font-semibold hover-underline flex items-center">
+                                            Voir les détails <i class="fas fa-arrow-right ml-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+        };
+
+        const Documents = {
+            render: () => {
+                return `
+                    <!-- Documents Component -->
+                    <section id="documents" class="py-16 px-6 bg-white">
+                        <div class="container mx-auto">
+                            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 section-title section-title-center editable" data-id="documents-title">Mes Documents</h2>
+                            
+                            <div class="mb-12">
+                                <div class="upload-container" id="documents-upload-area">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-blue-600 mb-4"></i>
+                                    <h3 class="text-xl font-semibold mb-2">Glissez-déposez vos fichiers ici</h3>
+                                    <p class="text-gray-600 mb-4">ou</p>
+                                    <label for="file-upload" class="btn-primary cursor-pointer">
+                                        <i class="fas fa-folder-open mr-2"></i> Parcourir les fichiers
+                                    </label>
+                                    <input type="file" id="file-upload" multiple class="hidden">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="bg-white p-6 rounded-lg shadow-md text-center card-hover document-item">
+                                    <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-file-pdf text-2xl text-blue-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2 editable" data-id="cv-title">CV Professionnel</h3>
+                                    <p class="text-gray-700 mb-4 editable" data-id="cv-description">Mon curriculum vitae à jour</p>
+                                    <div class="text-center">
+                                        <a href="#" class="text-blue-600 font-semibold hover:underline editable" data-id="cv-link" id="cv-download">Télécharger (PDF)</a>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-md text-center card-hover document-item">
+                                    <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-graduation-cap text-2xl text-green-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2 editable" data-id="diplomas-title">Diplômes</h3>
+                                    <p class="text-gray-700 mb-4 editable" data-id="diplomas-description">Mes diplômes universitaires</p>
+                                    <div class="text-center">
+                                        <a href="#" class="text-blue-600 font-semibold hover:underline editable" data-id="diplomas-link" id="diplomas-download">Voir les diplômes</a>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-md text-center card-hover document-item">
+                                    <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-certificate text-2xl text-purple-600"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2 editable" data-id="certifications-title">Certifications</h3>
+                                    <p class="text-gray-700 mb-4 editable" data-id="certifications-description">Mes certifications professionnelles</p>
+                                    <div class="text-center">
+                                        <a href="#" class="text-blue-600 font-semibold hover:underline editable" data-id="certifications-link" id="certifications-download">Voir les certifications</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-12">
+                                <h3 class="text-2xl font-semibold mb-6 text-center editable" data-id="other-docs-title">Autres Documents</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-gray-50 p-4 rounded-lg flex items-center justify-between document-item">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-file-word text-blue-600 text-2xl mr-4"></i>
+                                            <div>
+                                                <h4 class="font-semibold editable" data-id="doc-1-title">Lettre de Motivation</h4>
+                                                <p class="text-gray-600 text-sm editable" data-id="doc-1-desc">Modèle personnalisable</p>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="text-blue-600 hover:text-blue-800" id="motivation-download">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
+                                    <div class="bg-gray-50 p-4 rounded-lg flex items-center justify-between document-item">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-file-powerpoint text-orange-600 text-2xl mr-4"></i>
+                                            <div>
+                                                <h4 class="font-semibold editable" data-id="doc-2-title">Présentation Portfolio</h4>
+                                                <p class="text-gray-600 text-sm editable" data-id="doc-2-desc">Vue d'ensemble de mes compétences</p>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="text-blue-600 hover:text-blue-800" id="portfolio-download">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+        };
+
+        const Contact = {
+            render: () => {
+                return `
+                    <!-- Contact Component -->
+                    <section id="contact" class="py-16 px-6 bg-gray-100">
+                        <div class="container mx-auto">
+                            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 section-title section-title-center editable" data-id="contact-title">Contactez-Moi</h2>
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-8">
+                                    <h3 class="text-2xl font-semibold mb-4 text-blue-600 editable" data-id="contact-subtitle">Restons en Contact</h3>
+                                    <p class="text-gray-700 mb-6 editable" data-id="contact-description">N'hésitez pas à me contacter pour discuter de projets, d'opportunités ou simplement pour échanger.</p>
+                                    <div class="mb-6">
+                                        <div class="flex items-center mb-4">
+                                            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white mr-4">
+                                                <i class="fas fa-envelope"></i>
+                                            </div>
+                                            <p class="text-gray-700 editable" data-id="contact-email">fanuel045@email.com</p>
+                                        </div>
+                                        <div class="flex items-center mb-4">
+                                            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white mr-4">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                            <p class="text-gray-700 editable" data-id="contact-phone">+257 79 12 34 56</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white mr-4">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </div>
+                                            <p class="text-gray-700 editable" data-id="contact-location">Gitega, Burundi</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-4">
+                                        <a href="#" class="social-icon">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                        <a href="#" class="social-icon">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                        <a href="#" class="social-icon">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#" class="social-icon">
+                                            <i class="fab fa-behance"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="md:w-1/2 md:pl-8">
+                                    <form class="bg-white p-6 rounded-lg shadow-md">
+                                        <div class="floating-label">
+                                            <input type="text" id="name" class="floating-input" placeholder=" ">
+                                            <label for="name" class="floating-label-text">Nom Complet</label>
+                                        </div>
+                                        <div class="floating-label">
+                                            <input type="email" id="email" class="floating-input" placeholder=" ">
+                                            <label for="email" class="floating-label-text">Adresse Email</label>
+                                        </div>
+                                        <div class="floating-label">
+                                            <input type="text" id="subject" class="floating-input" placeholder=" ">
+                                            <label for="subject" class="floating-label-text">Sujet</label>
+                                        </div>
+                                        <div class="floating-label">
+                                            <textarea id="message" rows="4" class="floating-input" placeholder=" "></textarea>
+                                            <label for="message" class="floating-label-text">Message</label>
+                                        </div>
+                                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">Envoyer le Message</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+        };
+
+        const Footer = {
+            render: () => {
+                return `
+                    <!-- Footer Component -->
+                    <footer class="bg-gray-800 text-white py-8 px-6">
+                        <div class="container mx-auto">
+                            <div class="flex flex-col md:flex-row justify-between items-center">
+                                <div class="mb-6 md:mb-0">
+                                    <p class="editable" data-id="footer-text">© 2023 Mandela KASUMBA Fanuel (Fanuel045). Tous droits réservés.</p>
+                                </div>
+                                <div class="flex space-x-6">
+                                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                                        <i class="fab fa-linkedin-in text-xl"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                                        <i class="fab fa-github text-xl"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                                        <i class="fab fa-twitter text-xl"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                                        <i class="fab fa-behance text-xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mt-6 text-center md:text-left">
+                                <p class="text-gray-400 text-sm editable" data-id="footer-credits">Développé avec ❤️ en utilisant HTML, CSS et JavaScript</p>
+                            </div>
+                        </div>
+                    </footer>
+                `;
+            }
+        };
+
+        // Gestionnaire d'application
+        class PortfolioApp {
+            constructor() {
+                this.components = {
+                    Header, Hero, About, Skills, 
+                    Experience, Projects, Documents, 
+                    Contact, Footer
+                };
+                this.appElement = document.getElementById('app');
+                this.init();
+            }
+
+            init() {
+                this.renderComponents();
+                this.setupEventListeners();
+                this.loadSavedData();
+                this.setupScrollAnimations();
+                this.animateSkillBars();
+            }
+
+            renderComponents() {
+                // Rendu de chaque composant dans l'ordre
+                const componentsHTML = `
+                    ${Header.render()}
+                    ${Hero.render()}
+                    ${About.render()}
+                    ${Skills.render()}
+                    ${Experience.render()}
+                    ${Projects.render()}
+                    ${Documents.render()}
+                    ${Contact.render()}
+                    ${Footer.render()}
+                `;
+                
+                this.appElement.innerHTML = componentsHTML;
+            }
+
+            setupEventListeners() {
+                // Gestionnaire pour le menu mobile
+                document.addEventListener('click', (e) => {
+                    if (e.target.id === 'menu-btn' || e.target.closest('#menu-btn')) {
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        mobileMenu.classList.toggle('hidden');
+                    }
+                    
+                    if (e.target.id === 'edit-toggle' || e.target.closest('#edit-toggle')) {
+                        document.body.classList.toggle('edit-mode');
+                        const adminPanel = document.getElementById('admin-panel');
+                        adminPanel.style.display = document.body.classList.contains('edit-mode') ? 'block' : 'none';
+                    }
+                    
+                    if (e.target.id === 'save-btn' || e.target.closest('#save-btn')) {
+                        this.saveData();
+                        
+                        // Afficher la notification
+                        const saveNotification = document.getElementById('save-notification');
+                        saveNotification.style.display = 'block';
+                        setTimeout(() => {
+                            saveNotification.style.display = 'none';
+                        }, 3000);
+                        
+                        document.body.classList.remove('edit-mode');
+                        const adminPanel = document.getElementById('admin-panel');
+                        adminPanel.style.display = 'none';
+                    }
+                    
+                    if (e.target.id === 'cancel-btn' || e.target.closest('#cancel-btn')) {
+                        document.body.classList.remove('edit-mode');
+                        const adminPanel = document.getElementById('admin-panel');
+                        adminPanel.style.display = 'none';
+                        this.loadSavedData();
+                    }
+                    
+                    // Fermer le menu mobile en cliquant sur un lien
+                    if (e.target.closest('#mobile-menu a')) {
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        mobileMenu.classList.add('hidden');
+                    }
+                    
+                    // Gestion du téléversement de photo de profil
+                    if (e.target.closest('.profile-overlay') || e.target.closest('#upload-profile')) {
+                        document.getElementById('profile-upload').click();
+                    }
+                    
+                    // Gestion du téléversement de documents
+                    if (e.target.closest('#documents-upload-area') || e.target.closest('#upload-docs')) {
+                        document.getElementById('file-upload').click();
+                    }
+                });
+                
+                // Écouter les changements de fichier pour la photo de profil
+                document.addEventListener('change', (e) => {
+                    if (e.target.id === 'profile-upload') {
+                        this.handleProfileImageUpload(e.target.files[0]);
+                    }
+                    
+                    if (e.target.id === 'file-upload') {
+                        this.handleDocumentsUpload(e.target.files);
+                    }
+                });
+                
+                // Gestionnaire pour la zone de glisser-déposer
+                const dropZone = document.getElementById('documents-upload-area');
+                if (dropZone) {
+                    dropZone.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        dropZone.classList.add('bg-blue-50');
+                        dropZone.classList.add('border-blue-500');
+                    });
+                    
+                    dropZone.addEventListener('dragleave', () => {
+                        dropZone.classList.remove('bg-blue-50');
+                        dropZone.classList.remove('border-blue-500');
+                    });
+                    
+                    dropZone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        dropZone.classList.remove('bg-blue-50');
+                        dropZone.classList.remove('border-blue-500');
+                        this.handleDocumentsUpload(e.dataTransfer.files);
+                    });
+                }
+            }
+
+            setupScrollAnimations() {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('section-visible');
+                            
+                            // Animer les barres de compétences si c'est la section compétences
+                            if (entry.target.closest('#competences')) {
+                                this.animateSkillBars();
+                            }
+                        }
+                    });
+                }, observerOptions);
+
+                // Observer les sections avec un léger délai pour s'assurer qu'elles sont rendues
+                setTimeout(() => {
+                    document.querySelectorAll('section > .container').forEach(section => {
+                        section.classList.add('section-hidden');
+                        observer.observe(section);
+                    });
+                }, 100);
+            }
+
+            animateSkillBars() {
+                const skillBars = document.querySelectorAll('.skill-level');
+                skillBars.forEach(bar => {
+                    const level = bar.getAttribute('data-level');
+                    bar.style.width = level + '%';
+                });
+            }
+
+            handleProfileImageUpload(file) {
+                if (file && file.type.match('image.*')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const profileImage = document.getElementById('profile-image');
+                        profileImage.src = e.target.result;
+                        
+                        // Sauvegarder l'image en localStorage
+                        localStorage.setItem('profileImage', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            handleDocumentsUpload(files) {
+                if (files.length > 0) {
+                    // Ici, vous pouvez implémenter la logique pour traiter les fichiers téléversés
+                    // Par exemple, les afficher dans la liste des documents
+                    console.log('Fichiers téléversés:', files);
+                    
+                    // Afficher une notification
+                    const saveNotification = document.getElementById('save-notification');
+                    saveNotification.textContent = `${files.length} document(s) téléversé(s) avec succès!`;
+                    saveNotification.style.display = 'block';
+                    setTimeout(() => {
+                        saveNotification.style.display = 'none';
+                    }, 3000);
+                }
+            }
+
+            saveData() {
+                const editableElements = document.querySelectorAll('.editable');
+                const data = {};
+                
+                editableElements.forEach(element => {
+                    data[element.getAttribute('data-id')] = element.innerHTML;
+                });
+                
+                localStorage.setItem('portfolioData', JSON.stringify(data));
+            }
+
+            loadSavedData() {
+                const savedData = JSON.parse(localStorage.getItem('portfolioData'));
+                
+                if (savedData) {
+                    Object.keys(savedData).forEach(id => {
+                        const element = document.querySelector(`[data-id="${id}"]`);
+                        if (element) {
+                            element.innerHTML = savedData[id];
+                        }
+                    });
+                }
+                
+                // Charger l'image de profil sauvegardée
+                const savedProfileImage = localStorage.getItem('profileImage');
+                if (savedProfileImage) {
+                    const profileImage = document.getElementById('profile-image');
+                    profileImage.src = savedProfileImage;
+                }
+            }
+        }
+
+        // Initialiser l'application lorsque le DOM est chargé
+        document.addEventListener('DOMContentLoaded', function() {
+            new PortfolioApp();
+        });
+    </script>
+</body>
+</html>
