@@ -22,13 +22,13 @@ const LogoFanuel = () => {
             x="50%"
             y="54%"
             textAnchor="middle"
-            fill="#8B0000"
+            // fill="#8B0000"
             fontSize="36"
             fontFamily="Arial, sans-serif"
             fontWeight="bold"
             dominantBaseline="middle"
           >
-            By
+            MF
           </text>
         </svg>
       </Box>

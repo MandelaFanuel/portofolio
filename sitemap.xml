@@ -1,4 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://mandelafanuelportofolio-versel-url/</loc></url>
+  
+  <!-- Page d'accueil -->
+  <url>
+    <loc>https://fanuel045.vercel.app/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Sections principales -->
+  <url>
+    <loc>https://fanuel045.vercel.app/#accueil</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://fanuel045.vercel.app/#projets</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://fanuel045.vercel.app/#competences</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://fanuel045.vercel.app/#experiences</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://fanuel045.vercel.app/#documents</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://fanuel045.vercel.app/#contact</loc>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
