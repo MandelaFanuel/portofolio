@@ -1531,7 +1531,11 @@ init() {
       const res = await fetch(`${SECURE_API_BASE}/api/sign-url`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: pwd, docType: this.selectedDocType })
+        body: JSON.stringify({ 
+          action: "sign",  // ← AJOUTEZ CE PARAMÈTRE
+          password: pwd, 
+          docType: this.selectedDocType 
+        })
       });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
