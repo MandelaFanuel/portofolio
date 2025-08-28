@@ -1,10 +1,11 @@
 
 
 /* ======= CONFIG ======= */
-const ADMIN_PASSWORD = window.ENV_CONFIG?.ADMIN_PASSWORD || "Lishan414141n";
-const SECURE_API_BASE = window.ENV_CONFIG?.API_BASE_URL || "https://fanuel045-api.vercel.app";
+// Utiliser EXCLUSIVEMENT les variables de env.js
+const ADMIN_PASSWORD = window.ENV_CONFIG.ADMIN_PASSWORD;
+const SECURE_API_BASE = window.ENV_CONFIG.API_BASE_URL;
 
-console.log('API Base URL:', SECURE_API_BASE);
+// console.log('API Base URL:', SECURE_API_BASE);
 
 /* ======= DONNÉES INIT ======= */
 const initialData = {
