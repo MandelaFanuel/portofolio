@@ -1,15 +1,16 @@
 /* ======= CONFIG ======= */
-const ADMIN_PASSWORD = "Lishan414141n";
-const SECURE_API_BASE = "https://fanuel045.vercel.app"; // <= TON API Vercel
+/* ======= CONFIG ======= */
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
+const SECURE_API_BASE = process.env.API_BASE_URL || "https://fanuel045.vercel.app";
 
 /* ======= DONNÉES INIT ======= */
 const initialData = {
   "hero-title": "Mandela KASUMBA Fanuel",
-  "hero-subtitle": "Développeur Full Stack & Mobile",
-  "hero-description": "Je crée des expériences web et mobiles exceptionnelles avec Django, Django REST Framework et Kotlin. Passionné par les technologies émergentes comme la blockchain.",
+  "hero-subtitle": "Développeur Web Full Stack ",
+  "hero-description": "Je crée des expériences web exceptionnelles avec Django, Django REST Framework et en train d'apprendre Kotlin pour mobiles. Passionné par les technologies émergentes comme la blockchain.",
   "about-title": "À Propos de Moi",
   "about-subtitle": "Mon Parcours",
-  "about-description": "Étudiant en Bac 4 en Génie Logiciel, je suis passionné par le développement web et mobile depuis plusieurs années. J'ai acquis une expertise solide dans la création d'applications modernes et responsives avec Django и React.js.",
+  "about-description": "Étudiant en Bac 4 en Génie Logiciel de l'Université Polytechnique de Gitega,UPG, je suis passionné par le développement web et mobile depuis plusieurs années. J'ai acquis une expertise solide dans la création d'applications modernes et responsives en python avec Django и React.js.",
   "about-details": "Je m'intéresse particulièrement aux technologies émergentes comme la blockchain et je me forme constamment aux nouvelles pratiques de développement. J'aime résoudre des problèmes complexes et créer des expériences utilisateur exceptionnelles.",
   "about-more": "En dehors du code, je suis passionné par l'enseignement et le partage de connaissances. J'ai d'ailleurs été enseignant à l'école primaire Destiny School en 2020-2021 avant de me consacrer pleinement à mes études en génie logiciel.",
   "info-title": "Informations Personnelles",
@@ -145,11 +146,11 @@ const translations = {
     
     // Textes additionnels pour une traduction complète
     "hero-title": "Mandela KASUMBA Fanuel",
-    "hero-subtitle": "Développeur Full Stack & Mobile",
-    "hero-description": "Je crée des expériences web et mobiles exceptionnelles avec Django, Django REST Framework et Kotlin. Passionné par les technologies émergentes comme la blockchain.",
+    "hero-subtitle": "Développeur Web Full Stack ",
+    "hero-description": "Je crée des expériences web exceptionnelles avec Django, Django REST Framework et en train d'apprendre Kotlin pour mobile. Passionné par les technologies émergentes comme la blockchain.",
     "about-title": "À Propos de Moi",
     "about-subtitle": "Mon Parcours",
-    "about-description": "Étudiant en Bac 4 en Génie Logiciel, je suis passionné par le développement web et mobile depuis plusieurs années. J'ai acquis une expertise solide dans la création d'applications modernes et responsives avec Django et React.js.",
+    "about-description": "Étudiant en Bac 4 en Génie Logiciel de l'Université Polytechnique de Gitega,UPG, je suis passionné par le développement web et mobile depuis plusieurs années. J'ai acquis une expertise solide dans la création d'applications modernes et responsives en python avec Django et React.js.",
     "about-details": "Je m'intéresse particulièrement aux technologies émergentes comme la blockchain et je me forme constamment aux nouvelles pratiques de développement. J'aime résoudre des problèmes complexes et créer des expériences utilisateur exceptionnelles.",
     "about-more": "En dehors du code, je suis passionné par l'enseignement et le partage de connaissances. J'ai d'ailleurs été enseignant à l'école primaire Destiny School en 2020-2021 avant de me consacrer pleinement à mes études en génie logiciel.",
     "info-title": "Informations Personnelles",
@@ -218,7 +219,7 @@ const translations = {
     "footer-text": "© 2023 Mandela KASUMBA Fanuel (Fanuel045). Tous droits réservés.",
     "footer-credits": "Développé avec ❤️ en utilisant HTML, CSS et JavaScript",
     "logo-text": "Mandla Fanuel Portofolio",
-    "alt-fanuel2": "Fanuel045 - Développeur Full Stack",
+    "alt-fanuel2": "Fanuel045 - Développeur Web Full Stack",
     "alt-medicalchain": "Projet MedicalChain - Plateforme médicale blockchain",
     "alt-seasky": "Projet SeaSky On The Way - Application maritime",
     "alt-event": "Projet inviQ - Plateforme d'invitations blockchain",
@@ -310,12 +311,12 @@ const translations = {
     
     // Textes additionnels pour une traduction complète
     "hero-title": "Mandela KASUMBA Fanuel",
-    "hero-subtitle": "Full Stack & Mobile Developer",
-    "hero-description": "I create exceptional web and mobile experiences with Django, Django REST Framework and Kotlin. Passionate about emerging technologies like blockchain.",
+    "hero-subtitle": "Full Stack & Web Applications Developer",
+    "hero-description": "I create exceptional web experiences with Django, Django REST Framework and still learning Kotlin for mobile. Passionate about emerging technologies like blockchain.",
     "about-title": "About Me",
     "about-subtitle": "My Journey",
     "about-description": "Polythechnic University of Gitega,UPG",
-    "about-description": "4th year Software Engineering student, I have been passionate about web and mobile development for several years. I have acquired solid expertise in creating modern and responsive applications with Django and React.js.",
+    "about-description": "4th year Software Engineering student at Polythechnique University of Gitega,UPG, I have been passionate about web and mobile development for several years. I have acquired solid expertise in creating modern and responsive applications in python with Django and React.js.",
     "about-details": "I am particularly interested in emerging technologies like blockchain and I constantly train in new development practices. I love solving complex problems and creating exceptional user experiences.",
     "about-more": "Outside of code, I am passionate about teaching and knowledge sharing. I was a teacher at Destiny Primary School in 2020-2021 before fully devoting myself to my software engineering studies.",
     "info-title": "Personal Information",
@@ -385,7 +386,7 @@ const translations = {
     "footer-text": "© 2023 Mandela KASUMBA Fanuel (Fanuel045). All rights reserved.",
     "footer-credits": "Developed with ❤️ using HTML, CSS and JavaScript",
     "logo-text": "Mandla Fanuel Portofolio",
-    "alt-fanuel2": "Fanuel045 - Full Stack Developer",
+    "alt-fanuel2": "Fanuel045 - Web Full Stack Developer",
     "alt-medicalchain": "MedicalChain Project - Blockchain medical platform",
     "alt-seasky": "SeaSky On The Way Project - Maritime application",
     "alt-event": "inviQ Project - Blockchain invitation platform",
@@ -479,7 +480,7 @@ const Header = {
           <!-- Sélecteur de langue -->
           <div class="ml-4 relative">
             <select id="language-selector" class="px-2 py-1 border rounded text-sm">
-              <option value="fr" ${currentLang === 'fr' ? 'selected' : ''}>Fench</option>
+              <option value="fr" ${currentLang === 'fr' ? 'selected' : ''}>French</option>
               <option value="en" ${currentLang === 'en' ? 'selected' : ''}>English</option>
             </select>
           </div>
@@ -487,7 +488,7 @@ const Header = {
         <div class="md:hidden flex items-center">
           <!-- Sélecteur de langue version mobile -->
           <select id="language-selector-mobile" class="px-2 py-1 border rounded text-sm mr-3">
-            <option value="fr" ${currentLang === 'fr' ? 'selected' : ''}>Fench</option>
+            <option value="fr" ${currentLang === 'fr' ? 'selected' : ''}>French</option>
             <option value="en" ${currentLang === 'en' ? 'selected' : ''}>English</option>
           </select>
           <button id="menu-btn" class="text-gray-700" aria-label="Menu">
@@ -513,7 +514,7 @@ const Hero = {
       <div class="container mx-auto flex flex-col md:flex-row items-center">
         <div class="md:w-1/2 mb-10 md:mb-0">
           <h1 class="text-4xl md:text-5xl font-bold mb-4 editable" data-id="hero-title" data-i18n="hero-title">Mandela KASUMBA Fanuel</h1>
-          <h2 class="text-2xl md:text-3xl mb-6 editable" data-id="hero-subtitle" data-i18n="hero-subtitle">Développeur Full Stack & Mobile</h2>
+          <h2 class="text-2xl md:text-3xl mb-6 editable" data-id="hero-subtitle" data-i18n="hero-subtitle">Développeur Web Full Stack </h2>
           <p class="text-lg mb-8 editable" data-id="hero-description" data-i18n="hero-description">Je crée des expériences web...</p>
           <div class="flex flex-wrap gap-4">
             <a href="#contact" class="btn-primary rounded-full btn-contact">Me Contacter</a>
@@ -522,7 +523,7 @@ const Hero = {
         </div>
         <div class="md:w-1/2 flex justify-center">
           <div class="profile-image-container">
-            <img src="assets/images/Fanuel2.jpg" alt="Fanuel045 - Développeur Full Stack" class="profile-image" id="profile-image" data-i18n-alt="alt-fanuel2">
+            <img src="assets/images/Fanuel2.jpg" alt="Fanuel045 - Développeur Web Full Stack" class="profile-image" id="profile-image" data-i18n-alt="alt-fanuel2">
             <div class="profile-overlay"><i class="fas fa-camera text-white text-2xl"></i></div>
             <input type="file" id="profile-upload" accept="image/*" class="hidden">
           </div>
@@ -540,7 +541,7 @@ const About = {
         <div class="flex flex-col md:flex-row">
           <div class="md:w-1/2 mb-10 md:mb-0 md:pr-8">
             <h3 class="text-2xl font-semibold mb-4 text-blue-600 editable" data-id="about-subtitle" data-i18n="about-subtitle">Mon Parcours</h3>
-            <p class="text-gray-700 mb-6 editable" data-id="about-description" data-i18n="about-description">Étudiant en Bac 4 en Génie Logiciel...</p>
+            <p class="text-gray-700 mb-6 editable" data-id="about-description" data-i18n="about-description">Étudiant en Bac 4 en Génie Logiciel de l'Université POlytechnique de Gitega,UPG...</p>
             <p class="text-gray-700 mb-6 editable" data-id="about-details" data-i18n="about-details">Je m'intéresse particulièrement...</p>
             <p class="text-gray-700 editable" data-id="about-more" data-i18n="about-more">En dehors du code, je suis passionné...</p>
           </div>
@@ -1175,14 +1176,14 @@ init() {
           title: initialData["project-1-title"],
           desc: initialData["project-1-desc"],
           tech: ["Django","DRF","Blockchain"],
-          img: "assets/images/medicalchain.png", // fourni par toi (orthographe conservée)
+          img: "assets/images/seasky.png", // fourni par toi (orthographe conservée)
           details: []
         },
         {
           title: initialData["project-2-title"],
           desc: initialData["project-2-desc"],
           tech: ["React","Analytics","API"],
-          img: "assets/images/seasky.png",
+          img: "assets/images/medicalchain.png",
           details: []
         },
         {
@@ -1799,9 +1800,9 @@ updatePageTitle(lang) {
   const titleElement = document.querySelector('title');
   if (titleElement) {
     if (lang === 'en') {
-      titleElement.textContent = "Portfolio | Mandela KASUMBA Fanuel (Fanuel045) - Full Stack & Mobile Developer";
+      titleElement.textContent = "Portfolio | Mandela KASUMBA Fanuel (Fanuel045) - Full Stack & Web applications Developer";
     } else {
-      titleElement.textContent = "Portfolio | Mandela KASUMBA Fanuel (Fanuel045) - Développeur Full Stack & Mobile";
+      titleElement.textContent = "Portfolio | Mandela KASUMBA Fanuel (Fanuel045) - Développeur Web Full Stack ";
     }
   }
 }
