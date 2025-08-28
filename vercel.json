@@ -2,42 +2,28 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/*.js",
-      "use": "@vercel/node"
+      "src": "**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1",
-      "methods": ["GET", "POST", "OPTIONS", "HEAD"],
-      "headers": {
-        "Access-Control-Allow-Origin": "https://fanuel045.github.io, https://fanuel045.vercel.app, http://localhost:3000, http://localhost:5500",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS, HEAD",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin, Accept",
-        "Access-Control-Allow-Credentials": "true",
-        "X-Content-Type-Options": "nosniff",
-        "X-Frame-Options": "DENY",
-        "X-XSS-Protection": "1; mode=block",
-        "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
-      }
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ],
-  "env": {
-    "SUPABASE_URL": "@supabase_url",
-    "SUPABASE_SERVICE_ROLE": "@supabase_service_role",
-    "SUPABASE_BUCKET": "@supabase_bucket",
-    "ADMIN_PASSWORD": "@admin_password"
-  },
-  "cleanUrls": true,
-  "trailingSlash": false,
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" },
-        { "key": "Pragma", "value": "no-cache" },
-        { "key": "Expires", "value": "0" }
+        { 
+          "key": "Access-Control-Allow-Origin", 
+          "value": "https://fanuel045-api.vercel.app" 
+        }
       ]
     },
     {
@@ -45,13 +31,23 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
+      ]
     }
   ],
+  "env": {
+    "API_BASE_URL": "https://fanuel045-api.vercel.app"
+  },
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     { "source": "/index.htm", "destination": "/", "permanent": true },
     { "source": "/home", "destination": "/", "permanent": false }
-  ],
-  "rewrites": [
-    { "source": "/api", "destination": "/api/sign-url.js" }
   ]
 }

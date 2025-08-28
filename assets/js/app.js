@@ -1,7 +1,10 @@
+
+
 /* ======= CONFIG ======= */
-/* ======= CONFIG ======= */
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
-const SECURE_API_BASE = process.env.API_BASE_URL || "https://fanuel045.vercel.app";
+const ADMIN_PASSWORD = window.ENV_CONFIG?.ADMIN_PASSWORD || "Lishan414141n";
+const SECURE_API_BASE = window.ENV_CONFIG?.API_BASE_URL || "https://fanuel045-api.vercel.app";
+
+console.log('API Base URL:', SECURE_API_BASE);
 
 /* ======= DONNÉES INIT ======= */
 const initialData = {
